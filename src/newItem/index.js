@@ -13,7 +13,7 @@ exports.handler = async () => {
   };
 
   try {
-    // Write a new item to the ItemTable
+    // Write a new item to the Item table
     await dynamodb.put(params).promise();
     console.log(`Writing item ${params.Item.id} to table ${process.env.TABLE_NAME}.`);
   } catch (error) {

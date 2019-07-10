@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 
 exports.handler = async () => {
-  // Use dynamodb to get items from the ItemTable
+  // Use dynamodb to get items from the Item table
   const dynamodb = new AWS.DynamoDB.DocumentClient();
   const params = {
     TableName: process.env.TABLE_NAME
