@@ -97,6 +97,7 @@ Resources:
               responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
+      Cors: '''*'''
 Parameters:
   StackTagName:
     Type: String
