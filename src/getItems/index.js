@@ -11,7 +11,7 @@ exports.handler = async () => {
 
   try {
     console.log(`Getting data from table ${process.env.TABLE_NAME}.`);
-    items = await dynamodb.scan(params).promise(); // get items from DynamoDB
+    const items = await dynamodb.scan(params).promise(); // get items from DynamoDB
     items.Items.forEach((item) => allItems.push(item)); // put contents in an array for easier parsing
     allItems.forEach(item => console.log(`Item ${item.id}: ${item.content}\n`)); // log the contents
   } catch (error) {
