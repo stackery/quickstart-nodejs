@@ -19,5 +19,14 @@ exports.handler = async () => {
     throw new Error(error); // stop execution if data from dynamodb not available
   }
 
-  return `${allItems.length} items found`;
+  // Return a 200 response if no errors
+  const response = {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: `${allItems.length} items found`
+  };
+
+  return response;
 };
