@@ -1,6 +1,6 @@
 # Stackery Quickstart NodeJS
 
-This is a simple backend API for a list app, written in NodeJS 10.x.
+This is a simple backend API for a list app, written in NodeJS 12.x.
 
 Follow the [Stackery Quickstart](https://docs.stackery.io/docs/quickstart/quickstart-nodejs/) to learn to use Stackery while writing this application.
 
