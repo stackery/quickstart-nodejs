@@ -95,11 +95,46 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${newItem.Arn}/invocations
               responses: {}
+          /updateItem:
+            put:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${updateItems.Arn}/invocations
+              responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
       Cors:
         AllowHeaders: '''Authorization,Content-Type'''
         AllowOrigin: '''*'''
+  updateItems:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-updateItems
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: updateItems
+      CodeUri: src/updateItems
+      Handler: index.handler
+      Runtime: nodejs12.x
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Items
+      Events:
+        QuickstartApiPUTupdateItem:
+          Type: Api
+          Properties:
+            Path: /updateItem
+            Method: PUT
+            RestApiId: !Ref QuickstartApi
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Items
+          TABLE_ARN: !GetAtt Items.Arn
 Parameters:
   StackTagName:
     Type: String
